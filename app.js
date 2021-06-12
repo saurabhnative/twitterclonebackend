@@ -18,5 +18,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+// route for managing tweets
 app.use("/tweet", tweetRouter);
 module.exports = app;

@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/dbconfig");
 const orderBy = require("lodash/orderBy");
+
+/**
+ * Route for inserting tweet into database
+ */
 router.post("/add", function (request, response) {
   console.log("data recieved from client", request.body);
   const options = {
@@ -20,6 +24,9 @@ router.post("/add", function (request, response) {
   });
 });
 
+/**
+ * Route for fetching all tweets from database
+ */
 router.get("/getAll", function (request, response) {
   const options = {
     // schema is not passed here since it has been passed while creating client
@@ -35,6 +42,7 @@ router.get("/getAll", function (request, response) {
     } else {
       console.log("result", res);
       const tweetsData = res.data;
+      // sort tweets on basis of creation time to show latest tweets first
       const sortedTweets = orderBy(tweetsData, ["__createdtime__"], ["desc"]);
       response.send({ results: sortedTweets });
     }
